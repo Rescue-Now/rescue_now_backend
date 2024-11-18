@@ -1,0 +1,22 @@
+{
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.6.10",
+    "hono": "jsr:@hono/hono@^4.6.10"
+  },
+  "tasks": {
+    "start": "deno run --allow-net --allow-read --allow-write --watch main.ts",
+    "test": "deno test --parallel"
+  },
+  "compilerOptions": {
+    "jsx": "precompile",
+    "jsxImportSource": "hono/jsx",
+    "checkJs": true
+  },
+  // asta ca sa cacheuiasca packagurile pt cand o sa fie in cloud (posibil sa ia un pic din spatiu da-i 1GiB oricum)
+  "vendor": true,
+  "unstable": [
+    "cron",
+    "kv",
+    "webgpu"
+  ]
+}
