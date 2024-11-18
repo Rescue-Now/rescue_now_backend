@@ -17,3 +17,5 @@ va duceti in ce directory vreti sa aveti repou si dati
 ```
 
 si daca sunteti cu vscode instalati [extensia default de la deno](vscode:extension/denoland.vscode-deno)
+
+[si asta repo de front-end](https://github.com/Rescue-Now/rescue_now) data te-ai pierdut cumva
