@@ -1,11 +1,15 @@
 {
   "version": "4",
   "specifiers": {
-    "jsr:@hono/hono@^4.6.10": "4.6.10"
+    "jsr:@hono/hono@^4.6.10": "4.6.10",
+    "jsr:@std/ulid@*": "1.0.0"
   },
   "jsr": {
     "@hono/hono@4.6.10": {
       "integrity": "dae93ac8bb49881f99506aa8e01e5536d5d72cc3c2b556bde2816fdf25ca609c"
+    },
+    "@std/ulid@1.0.0": {
+      "integrity": "d41c3d27a907714413649fee864b7cde8d42ee68437d22b79d5de4f81d808780"
     }
   },
   "workspace": {

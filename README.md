@@ -13,7 +13,7 @@ va duceti in ce directory vreti sa aveti repou si dati
  deno install --entrypoint main.ts
 
  #ca sa dati watch la proiect
- deno task dev
+ deno task start
 ```
 
 si daca sunteti cu vscode instalati [extensia default de la deno](vscode:extension/denoland.vscode-deno)
