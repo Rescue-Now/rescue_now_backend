@@ -4,7 +4,7 @@
     "hono": "jsr:@hono/hono@^4.6.10"
   },
   "tasks": {
-    "start": "deno run --allow-net --allow-read --allow-write --watch main.ts",
+    "run": "deno run --allow-net --allow-read --allow-write --watch main.ts",
     "test": "deno test --parallel"
   },
   "compilerOptions": {
