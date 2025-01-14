@@ -89,6 +89,7 @@ app.put("/location", async (c) => {
   const { lat, long, patientID } = await c.req.queries();
   const latitude = lat[0];
   const longitude = long[0];
+  // because each query param is an array
   let parsedpatientID;
   if (patientID !== undefined) {
     parsedpatientID = patientID[0];
@@ -110,13 +111,18 @@ app.put("/location", async (c) => {
   const location: Location = {
     lat: parseFloat(latitude),
     long: parseFloat(longitude),
-    patientID: "null lol",
+    patientID: "gol lol",
   };
   let patient: Patient;
 
   // if the patientid is not mentioned or does not exist, create a new patient
   if (patientkv?.value === undefined || patientkv.value === null) {
-    location.patientID = monotonicUlid();
+    if (patientID === undefined) {
+      location.patientID = monotonicUlid();
+    } else {
+      location.patientID = parsedpatientID!;
+    }
+
     patient = {
       id: location.patientID,
       name: "",
