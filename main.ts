@@ -87,71 +87,61 @@ app.put("/location", async (c) => {
   // get the patient mentioned in the location from the db
   // const location: Location = await c.req.json();
   const { lat, long, patientID } = await c.req.queries();
+
+  // because each query param is an array
   const latitude = lat[0];
   const longitude = long[0];
-  // because each query param is an array
-  let parsedpatientID;
-  if (patientID !== undefined) {
-    parsedpatientID = patientID[0];
-  }
+  const patiendId = patientID[0];
 
-  console.log(latitude, longitude, parsedpatientID);
+  console.log(latitude, longitude, patiendId);
 
   if (!latitude || !longitude) {
     return c.body("lat and long required", 400);
   }
 
-  console.log("user location: ", latitude, longitude);
-
-  let patientkv;
-  if (parsedpatientID) {
-    patientkv = await db.get(["locations", parsedpatientID]);
-  }
-
-  const location: Location = {
-    lat: parseFloat(latitude),
-    long: parseFloat(longitude),
-    patientID: "gol lol",
-  };
-  let patient: Patient;
-
-  // if the patientid is not mentioned or does not exist, create a new patient
-  if (patientkv?.value === undefined || patientkv.value === null) {
-    if (patientID === undefined) {
-      location.patientID = monotonicUlid();
-    } else {
-      location.patientID = parsedpatientID!;
-    }
-
-    patient = {
-      id: location.patientID,
-      name: "",
-      age: 0,
-      bloodType: "",
-      knownAlergies: [],
-      affections: [],
-      medicalHistory: [],
-      lastKnownLocation: { lat: location.lat, long: location.long },
-    };
-    //store it in the db
-    const result = await db.set(["patients", location.patientID], patient);
-    console.log(`creating new patient ${location.patientID}`);
-    console.log(result);
-    return c.json(`Successfully created new patient ${location.patientID}`);
-  }
-
-  console.log("patient exists");
+  const patientkv = await db.get(["patients", patiendId]);
 
   // change their location
-  patient = patientkv.value as Patient;
-  patient.lastKnownLocation = { lat: location.lat, long: location.long };
+  const patient: Patient = patientkv.value as Patient;
+  patient.lastKnownLocation = {
+    lat: parseFloat(latitude),
+    long: parseFloat(longitude),
+  };
 
   //store it back in the db
-  const result = await db.set(["patients", location.patientID], patient);
-  console.log(`updating location for patient ${location.patientID}`);
+  const result = await db.set(["patients", patiendId], patient);
+  console.log(`patient ${patiendId}`);
   console.log(result);
 
   return c.body(null, 204);
+});
+
+app.post("/location", async (c) => {
+  console.log("storing a new patient's location");
+  const { lat, long, _patientID } = await c.req.queries();
+  const latitude = lat[0];
+  const longitude = long[0];
+  const patientId = monotonicUlid();
+
+  const patient: Patient = {
+    id: patientId,
+    name: "",
+    age: 0,
+    bloodType: "",
+    knownAlergies: [],
+    affections: [],
+    medicalHistory: [],
+    lastKnownLocation: {
+      lat: parseFloat(latitude),
+      long: parseFloat(longitude),
+    },
+  };
+
+  //store it in the db
+  const result = await db.set(["patients", patientId], patient);
+  console.log(`creating patient ${patientId}`);
+  console.log(result);
+  return c.json({ id: patientId });
 });
 
 Deno.serve(app.fetch);
