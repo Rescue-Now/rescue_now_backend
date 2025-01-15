@@ -44,6 +44,7 @@ app.put("/patient", async (c) => {
   if (getPatient.value === null) {
     return c.body("patient not found", 404);
   }
+  // tot da eroare da chiar merge
   body.lastKnownLocation = getPatient.value.lastKnownLocation;
   const result = await db.set(["patients", body.id], body);
   console.log(result);
