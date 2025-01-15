@@ -44,6 +44,7 @@ app.put("/patient", async (c) => {
   if (getPatient.value === null) {
     return c.body("patient not found", 404);
   }
+  body.lastKnownLocation = getPatient.value.lastKnownLocation;
   const result = await db.set(["patients", body.id], body);
   console.log(result);
   return c.json(result);
@@ -103,6 +104,10 @@ app.put("/location", async (c) => {
 
   // change their location
   const patient: Patient = patientkv.value as Patient;
+
+  if (patient === null) {
+    return c.body("patient not found", 404);
+  }
   patient.lastKnownLocation = {
     lat: parseFloat(latitude),
     long: parseFloat(longitude),
@@ -110,7 +115,6 @@ app.put("/location", async (c) => {
 
   //store it back in the db
   const result = await db.set(["patients", patiendId], patient);
-  console.log(`patient ${patiendId}`);
   console.log(result);
 
   return c.body(null, 204);
