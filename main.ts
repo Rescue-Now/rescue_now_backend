@@ -3,7 +3,7 @@ import { Patient } from "./model.ts";
 import { monotonicUlid } from "jsr:@std/ulid";
 
 const app = new Hono();
-const db = await Deno.openKv("./db/db");
+const db = await Deno.openKv();
 
 app.get("/", (c) => {
   console.log("home da dam redirect");
