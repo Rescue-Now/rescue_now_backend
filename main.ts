@@ -16,11 +16,13 @@ app.get("/", (c) => {
 app.post("/patient", async (c) => {
   console.log("storing a new patient");
   const body = await c.req.json(); // vezi sa fie Content-Type: application/json
+  console.log("datele din request:");
   console.log(body);
   console.log(typeof body);
   //give resultit an id
   body.id = monotonicUlid();
   const result = await db.set(["patients", body.id], body);
+  console.log(`creating patient`);
   console.log(result);
   return c.json({ id: body.id });
 });
@@ -32,19 +34,25 @@ app.post("/patient", async (c) => {
 app.put("/patient", async (c) => {
   console.log("updating patient");
   const body: Patient = await c.req.json() as Patient;
+  console.log("datele din request:");
+  console.log(body);
+
   //give it an id just in case
-  if (!body.id) {
+  if (
+    !body.id || body.id === "" || body.id === "gol lol" || body.id === "Error"
+  ) {
     console.log("failed: no id");
     return c.body("id required", 400);
   }
   const getPatient = await db.get(["patients", body.id]);
-  console.log(body);
   if (getPatient.value === null) {
+    console.log("failed: patient not found");
     return c.body("patient not found", 404);
   }
   // tot da eroare da chiar merge
   body.lastKnownLocation = getPatient.value.lastKnownLocation;
   const result = await db.set(["patients", body.id], body);
+  console.log("updated patient");
   console.log(result);
   return c.json(result);
 });
