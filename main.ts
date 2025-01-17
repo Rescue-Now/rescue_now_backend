@@ -76,12 +76,8 @@ app.delete("/patient/:id", async (c) => {
   return c.body(null, 204);
 });
 
-//update location of patient, returns 204 if successful and patient already exists, and the id of the newly created patient if the patient did not exist
 // TODO sa dai convert sa mearga cu validators in loc sa fie inauntri aici toate if elseurile https://hono.dev/docs/guides/validation
 
-//TODO fa-l daca nu are id in request s-i creeze unu nou, si sa dea return la id sa-i zica la frontend ca ba vezi ca TRBUIE sa-l salvezi in preferences
-// adica in flutter mereu cand dai request dai si un idul salvat in prefferences
-//toate actiunile astea, put /location, put/patient trebuie sa incerce sa trimita cu location si daca nu are location aaa asa da post sau put deci in flutter daca nu ai id in preferences da post si daca il ai da put aici in backend la post, o sa dea return cu idul pe care o sa-l salveze flutterul in preferences
 app.put("/location", async (c) => {
   console.log("updating location");
   // get the patient mentioned in the location from the db
@@ -144,7 +140,7 @@ app.post("/location", async (c) => {
   const result = await db.set(["patients", patientId], patient);
   console.log(`creating patient ${patientId}`);
   console.log(result);
-  return c.json({ id: patientId });
+  return c.json({ id: patientId }, 201);
 });
 
 Deno.serve(app.fetch);
