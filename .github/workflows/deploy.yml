@@ -31,9 +31,6 @@ jobs:
       - name: Install step
         run: " deno install --entrypoint main.ts"
 
-      - name: Build step
-        run: "deno task run"
-
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
