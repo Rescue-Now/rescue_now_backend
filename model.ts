@@ -9,10 +9,4 @@ interface Patient {
     lastKnownLocation: { lat: number; long: number };
 }
 
-interface Location {
-    lat: number;
-    long: number;
-    patientID: string; // UUID of the patient the location conrresponds to
-}
-
-export type { Location, Patient };
+export type { Patient };

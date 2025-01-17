@@ -1,8 +1,6 @@
 import { Hono } from "hono";
-import { Location, Patient } from "./model.ts";
+import { Patient } from "./model.ts";
 import { monotonicUlid } from "jsr:@std/ulid";
-import { validator } from "hono/validator";
-import { patientPutValidator } from "./validators.ts";
 
 const app = new Hono();
 const db = await Deno.openKv("./db/db");
