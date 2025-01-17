@@ -3,4 +3,5 @@ vendor
 .DS_Store
 .vscode
 db/*
+node_modules
 

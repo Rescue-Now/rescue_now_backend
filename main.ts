@@ -76,6 +76,16 @@ app.delete("/patient/:id", async (c) => {
   return c.body(null, 204);
 });
 
+// clear entire db
+app.delete("/patients", async (c) => {
+  console.log("deleting all patients");
+  const iter = await db.list({ prefix: ["patients"] });
+  for await (const res of iter) {
+    await db.delete(res.key);
+  }
+  return c.body(null, 204);
+});
+
 // TODO sa dai convert sa mearga cu validators in loc sa fie inauntri aici toate if elseurile https://hono.dev/docs/guides/validation
 
 app.put("/location", async (c) => {
