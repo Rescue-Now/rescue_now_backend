@@ -156,7 +156,7 @@ app.post("/location", async (c) => {
 
   //store it in the db
   const result = await db.set(["patients", patientId], patient);
-  console.log(`creating patient ${patientId}`);
+  console.log(`creating patient for location ${patientId}`);
   console.log(result);
   return c.json({ id: patientId }, 201);
 });
