@@ -1,7 +1,10 @@
 ## Folosit pentru deno deploy, e bine dupa cum a zis Anthonel prima data
-practic pe [deno deploy](https://deno.com/deploy) (pe care am zis ca-l folosim in loc de firebase simcer si-l configurez acm ca se integreaza mult mai usor cu deno si e gratis si trlala) 
-iti da direct deploy din commituri pe github deci mdea, ar cam trebui repo separat si ajuta chestia asta si de cum ne organizam cu updateurile
 
+Se poate da manage de pe [proiectu de deno deploy](https://dash.deno.com/projects/rescue-now/) si se vede [aici](http://rescue-now.deno.dev/) API-ul cum ruleaza.
+
+e definit in [colectia asta de postman](https://www.postman.com/rescuenow-1282/workspace/team-workspace/collection/39209159-711ca9cc-3e6d-4aa9-bfd6-52c0e5472432?action=share&creator=39209159)
+
+### Ca sa rulati local, inainte sa dati deploy ca va e mai usor
 va duceti in ce directory vreti sa aveti repou si dati
 
 ```bash
@@ -17,5 +20,7 @@ va duceti in ce directory vreti sa aveti repou si dati
 ```
 
 si daca sunteti cu vscode instalati [extensia default de la deno](vscode:extension/denoland.vscode-deno)
+
+[aici postmanu](https://www.postman.com/rescuenow-1282/workspace/team-workspace/collection/39209159-c9963df0-c1c0-4931-8a0b-0a06a851378c?action=share&creator=39209159) pentru requesturi locale
 
 [si asta repo de front-end](https://github.com/Rescue-Now/rescue_now) data te-ai pierdut cumva
